@@ -1,13 +1,14 @@
-# CapybaraCookieDisabler
+# RackTestCookieDisabler
 
 When you are testing a web app it is sometiimes necessary to be able to disable cookies to emulate what happens when
 someone whose cookies are disabled uses your app.  This gem allows you to disable cookies when using capybara to test your web app.
+It only works for RackTest or RackTest-based drivers such as Mechanize.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'capybara_cookie_disabler'
+    gem 'racktest_cookie_disabler'
 
 And then execute:
 
@@ -15,11 +16,32 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install capybara_cookie_disabler
+    $ gem install racktest_cookie_disabler
 
 ## Usage
 
-TODO: Write usage instructions here
+Add RackTestCookieDisabler middleware to rails middleware stack.
+Add the following in`config/environments/test.rb`:
+```ruby
+    [MyRailsApp]::Application.configure do
+      ...
+      # Add cookie disabler middleware
+      config.middleware.insert_after Rack::Lock, RackTestCookieDisabler::Middleware
+      ...
+    end
+```
+*Note* Ensure you include racktest_cookie_disabler middleware only for *test* environment
+otherwise you will have security issue.
+
+In your spec:
+
+```rspec
+    scenario "with cookies disabled" do
+      page.disable_cookies(true)
+      page.visit '/'
+      ...
+    end
+```
 
 ## Contributing
 
