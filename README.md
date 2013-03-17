@@ -31,7 +31,7 @@ Add the following in`config/environments/test.rb`:
     end
 ```
 *Note* Ensure you include racktest_cookie_disabler middleware only for *test* environment
-otherwise you will have security issue.
+otherwise you may have issues.
 
 In your spec:
 
