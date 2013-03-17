@@ -43,6 +43,11 @@ In your spec:
     end
 ```
 
+## How does it work
+
+When you call disable_cookies(true) it adds an extra header to your request.
+The middleware detects this header and removes the 'HTTP_COOKIE' from the request.
+
 ## Contributing
 
 1. Fork it
